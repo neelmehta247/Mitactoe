@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 
@@ -41,15 +41,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .endConfig()
                 .buildRect("", Color.WHITE);
 
-        ((ImageView) findViewById(R.id.button11)).setImageDrawable(blankBox);
-        ((ImageView) findViewById(R.id.button12)).setImageDrawable(blankBox);
-        ((ImageView) findViewById(R.id.button13)).setImageDrawable(blankBox);
-        ((ImageView) findViewById(R.id.button21)).setImageDrawable(blankBox);
-        ((ImageView) findViewById(R.id.button22)).setImageDrawable(blankBox);
-        ((ImageView) findViewById(R.id.button23)).setImageDrawable(blankBox);
-        ((ImageView) findViewById(R.id.button31)).setImageDrawable(blankBox);
-        ((ImageView) findViewById(R.id.button32)).setImageDrawable(blankBox);
-        ((ImageView) findViewById(R.id.button33)).setImageDrawable(blankBox);
+        findViewById(R.id.button11).setBackground(blankBox);
+        findViewById(R.id.button12).setBackground(blankBox);
+        findViewById(R.id.button13).setBackground(blankBox);
+        findViewById(R.id.button21).setBackground(blankBox);
+        findViewById(R.id.button22).setBackground(blankBox);
+        findViewById(R.id.button23).setBackground(blankBox);
+        findViewById(R.id.button31).setBackground(blankBox);
+        findViewById(R.id.button32).setBackground(blankBox);
+        findViewById(R.id.button33).setBackground(blankBox);
     }
 
     private void initComponents() {
@@ -69,53 +69,62 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.button11:
                 if (board[0][0] == 0) {
-                    updateCell((ImageView) view);
+                    board[0][0] = 1;
+                    updateCell((Button) view);
                 }
                 break;
             case R.id.button12:
                 if (board[0][1] == 0) {
-                    updateCell((ImageView) view);
+                    board[0][1] = 1;
+                    updateCell((Button) view);
                 }
                 break;
             case R.id.button13:
                 if (board[0][2] == 0) {
-                    updateCell((ImageView) view);
+                    board[0][2] = 1;
+                    updateCell((Button) view);
                 }
                 break;
             case R.id.button21:
                 if (board[1][0] == 0) {
-                    updateCell((ImageView) view);
+                    board[1][0] = 1;
+                    updateCell((Button) view);
                 }
                 break;
             case R.id.button22:
                 if (board[1][1] == 0) {
-                    updateCell((ImageView) view);
+                    board[1][1] = 1;
+                    updateCell((Button) view);
                 }
                 break;
             case R.id.button23:
                 if (board[1][2] == 0) {
-                    updateCell((ImageView) view);
+                    board[1][2] = 1;
+                    updateCell((Button) view);
                 }
                 break;
             case R.id.button31:
                 if (board[2][0] == 0) {
-                    updateCell((ImageView) view);
+                    board[2][0] = 1;
+                    updateCell((Button) view);
                 }
                 break;
             case R.id.button32:
                 if (board[2][1] == 0) {
-                    updateCell((ImageView) view);
+                    board[2][1] = 1;
+                    updateCell((Button) view);
                 }
                 break;
             case R.id.button33:
                 if (board[2][2] == 0) {
-                    updateCell((ImageView) view);
+                    board[2][2] = 1;
+                    updateCell((Button) view);
                 }
                 break;
         }
     }
 
-    private void updateCell(ImageView view) {
+    private void updateCell(Button view) {
         int color;
 
         if (player1Turn) {
@@ -130,6 +139,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .endConfig()
                 .buildRect("X", color);
 
-        view.setImageDrawable(drawable);
+        view.setBackground(drawable);
     }
 }
