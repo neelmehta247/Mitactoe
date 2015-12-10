@@ -29,9 +29,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void startGame() {
         resetButtons();
-        board = new int[3][3];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        board = new int[4][4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 board[i][j] = 0;
             }
         }
@@ -44,83 +44,139 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .endConfig()
                 .buildRect("", Color.WHITE);
 
+        findViewById(R.id.button00).setBackground(blankBox);
+        findViewById(R.id.button01).setBackground(blankBox);
+        findViewById(R.id.button02).setBackground(blankBox);
+        findViewById(R.id.button03).setBackground(blankBox);
+        findViewById(R.id.button10).setBackground(blankBox);
         findViewById(R.id.button11).setBackground(blankBox);
         findViewById(R.id.button12).setBackground(blankBox);
         findViewById(R.id.button13).setBackground(blankBox);
+        findViewById(R.id.button20).setBackground(blankBox);
         findViewById(R.id.button21).setBackground(blankBox);
         findViewById(R.id.button22).setBackground(blankBox);
         findViewById(R.id.button23).setBackground(blankBox);
+        findViewById(R.id.button30).setBackground(blankBox);
         findViewById(R.id.button31).setBackground(blankBox);
         findViewById(R.id.button32).setBackground(blankBox);
         findViewById(R.id.button33).setBackground(blankBox);
     }
 
     private void initComponents() {
-        (findViewById(R.id.button11)).setOnClickListener(this);
-        (findViewById(R.id.button12)).setOnClickListener(this);
-        (findViewById(R.id.button13)).setOnClickListener(this);
-        (findViewById(R.id.button21)).setOnClickListener(this);
-        (findViewById(R.id.button22)).setOnClickListener(this);
-        (findViewById(R.id.button23)).setOnClickListener(this);
-        (findViewById(R.id.button31)).setOnClickListener(this);
-        (findViewById(R.id.button32)).setOnClickListener(this);
-        (findViewById(R.id.button33)).setOnClickListener(this);
+        findViewById(R.id.button00).setOnClickListener(this);
+        findViewById(R.id.button01).setOnClickListener(this);
+        findViewById(R.id.button02).setOnClickListener(this);
+        findViewById(R.id.button03).setOnClickListener(this);
+        findViewById(R.id.button10).setOnClickListener(this);
+        findViewById(R.id.button11).setOnClickListener(this);
+        findViewById(R.id.button12).setOnClickListener(this);
+        findViewById(R.id.button13).setOnClickListener(this);
+        findViewById(R.id.button20).setOnClickListener(this);
+        findViewById(R.id.button21).setOnClickListener(this);
+        findViewById(R.id.button22).setOnClickListener(this);
+        findViewById(R.id.button23).setOnClickListener(this);
+        findViewById(R.id.button30).setOnClickListener(this);
+        findViewById(R.id.button31).setOnClickListener(this);
+        findViewById(R.id.button32).setOnClickListener(this);
+        findViewById(R.id.button33).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button11:
+            case R.id.button00:
                 if (board[0][0] == 0) {
                     board[0][0] = 1;
                     updateCell((Button) view);
                 }
                 break;
-            case R.id.button12:
+            case R.id.button01:
                 if (board[0][1] == 0) {
                     board[0][1] = 1;
                     updateCell((Button) view);
                 }
                 break;
-            case R.id.button13:
+            case R.id.button02:
                 if (board[0][2] == 0) {
                     board[0][2] = 1;
                     updateCell((Button) view);
                 }
                 break;
-            case R.id.button21:
+            case R.id.button03:
+                if (board[0][3] == 0) {
+                    board[0][3] = 1;
+                    updateCell((Button) view);
+                }
+                break;
+            case R.id.button10:
                 if (board[1][0] == 0) {
                     board[1][0] = 1;
                     updateCell((Button) view);
                 }
                 break;
-            case R.id.button22:
+            case R.id.button11:
                 if (board[1][1] == 0) {
                     board[1][1] = 1;
                     updateCell((Button) view);
                 }
                 break;
-            case R.id.button23:
+            case R.id.button12:
                 if (board[1][2] == 0) {
                     board[1][2] = 1;
                     updateCell((Button) view);
                 }
                 break;
-            case R.id.button31:
+            case R.id.button13:
+                if (board[1][3] == 0) {
+                    board[1][3] = 1;
+                    updateCell((Button) view);
+                }
+                break;
+            case R.id.button20:
                 if (board[2][0] == 0) {
                     board[2][0] = 1;
                     updateCell((Button) view);
                 }
                 break;
-            case R.id.button32:
+            case R.id.button21:
                 if (board[2][1] == 0) {
                     board[2][1] = 1;
                     updateCell((Button) view);
                 }
                 break;
-            case R.id.button33:
+            case R.id.button22:
                 if (board[2][2] == 0) {
                     board[2][2] = 1;
+                    updateCell((Button) view);
+                }
+                break;
+            case R.id.button23:
+                if (board[2][3] == 0) {
+                    board[2][3] = 1;
+                    updateCell((Button) view);
+                }
+                break;
+            case R.id.button30:
+                if (board[3][0] == 0) {
+                    board[3][0] = 1;
+                    updateCell((Button) view);
+                }
+                break;
+            case R.id.button31:
+                if (board[3][1] == 0) {
+                    board[3][1] = 1;
+                    updateCell((Button) view);
+                }
+                break;
+            case R.id.button32:
+                if (board[3][2] == 0) {
+                    board[3][2] = 1;
+                    updateCell((Button) view);
+                }
+                break;
+            case R.id.button33:
+                if (board[3][3] == 0) {
+                    board[3][3] = 1;
                     updateCell((Button) view);
                 }
                 break;
@@ -178,53 +234,53 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean isGameOver() {
         //Checking columns
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             int total = 0;
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 4; j++) {
                 if (board[i][j] == 1) {
                     total++;
                 }
             }
-            if (total == 3) {
+            if (total == 4) {
                 return true;
             }
         }
 
         //Checking rows
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             int total = 0;
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 4; j++) {
                 if (board[j][i] == 1) {
                     total++;
                 }
             }
-            if (total == 3) {
+            if (total == 4) {
                 return true;
             }
         }
 
         //Checking one diagonal
         int total = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 if ((i == j) && board[j][i] == 1) {
                     total++;
                 }
             }
         }
-        if (total == 3) {
+        if (total == 4) {
             return true;
         }
 
         //Checking the other diagonal
         total = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if ((i + j == 2) && board[i][j] == 1) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ((i + j == 3) && board[i][j] == 1) {
                     total++;
                 }
             }
         }
-        return total == 3;
+        return total == 4;
     }
 }
