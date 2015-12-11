@@ -11,6 +11,8 @@ import android.widget.Button;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 
+import java.util.Random;
+
 /**
  * Created by neel on 28/11/15 at 3:26 PM.
  */
@@ -200,7 +202,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         view.setBackground(drawable);
 
-        if (isGameOver()) {
+        if (isGameOver(board)) {
             String winString;
             if (player1Turn) {
                 winString = "Player 1 Wins!";
@@ -230,14 +232,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     .create();
             dialog.show();
         }
+
+        if (!player1Turn && !isGameOver(board)) {
+            doAIMove();
+        }
     }
 
-    private boolean isGameOver() {
+    private boolean isGameOver(int[][] boardToCheck) {
         //Checking columns
         for (int i = 0; i < 4; i++) {
             int total = 0;
             for (int j = 0; j < 4; j++) {
-                if (board[i][j] == 1) {
+                if (boardToCheck[i][j] == 1) {
                     total++;
                 }
             }
@@ -250,7 +256,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < 4; i++) {
             int total = 0;
             for (int j = 0; j < 4; j++) {
-                if (board[j][i] == 1) {
+                if (boardToCheck[j][i] == 1) {
                     total++;
                 }
             }
@@ -263,7 +269,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int total = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if ((i == j) && board[j][i] == 1) {
+                if ((i == j) && boardToCheck[j][i] == 1) {
                     total++;
                 }
             }
@@ -276,11 +282,129 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         total = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if ((i + j == 3) && board[i][j] == 1) {
+                if ((i + j == 3) && boardToCheck[i][j] == 1) {
                     total++;
                 }
             }
         }
         return total == 4;
+    }
+
+    public void doAIMove() {
+        Random random = new Random();
+        int i, j;
+        int[][] boardToSend;
+        boolean toContinue;
+        int count = 0;
+        do {
+            boardToSend = copyArray(board, 4);
+            toContinue = false;
+            count++;
+            i = random.nextInt(4);
+            j = random.nextInt(4);
+            if (boardToSend[i][j] == 0) {
+                boardToSend[i][j] = 1;
+                if (!isGameOver(boardToSend)) {
+                    break;
+                }
+            } else {
+                toContinue = true;
+            }
+        } while (toContinue || count < 16);
+
+        if (count >= 16) {
+            outer:
+            for (int x = 0; x < 4; x++) {
+                for (int y = 0; y < 4; y++) {
+                    if (board[x][y] == 0) {
+                        board[x][y] = 1;
+                        break outer;
+                    }
+                }
+            }
+        } else {
+            board[i][j] = 1;
+        }
+
+        switch (i) {
+            case 0:
+                switch (j) {
+                    case 0:
+                        updateCell((Button) findViewById(R.id.button00));
+                        break;
+                    case 1:
+                        updateCell((Button) findViewById(R.id.button01));
+                        break;
+                    case 2:
+                        updateCell((Button) findViewById(R.id.button02));
+                        break;
+                    case 3:
+                        updateCell((Button) findViewById(R.id.button03));
+                        break;
+                }
+                break;
+            case 1:
+                switch (j) {
+                    case 0:
+                        updateCell((Button) findViewById(R.id.button10));
+                        break;
+                    case 1:
+                        updateCell((Button) findViewById(R.id.button11));
+                        break;
+                    case 2:
+                        updateCell((Button) findViewById(R.id.button12));
+                        break;
+                    case 3:
+                        updateCell((Button) findViewById(R.id.button13));
+                        break;
+                }
+                break;
+            case 2:
+                switch (j) {
+                    case 0:
+                        updateCell((Button) findViewById(R.id.button20));
+                        break;
+                    case 1:
+                        updateCell((Button) findViewById(R.id.button21));
+                        break;
+                    case 2:
+                        updateCell((Button) findViewById(R.id.button22));
+                        break;
+                    case 3:
+                        updateCell((Button) findViewById(R.id.button23));
+                        break;
+                }
+                break;
+            case 3:
+                switch (j) {
+                    case 0:
+                        updateCell((Button) findViewById(R.id.button30));
+                        break;
+                    case 1:
+                        updateCell((Button) findViewById(R.id.button31));
+                        break;
+                    case 2:
+                        updateCell((Button) findViewById(R.id.button32));
+                        break;
+                    case 3:
+                        updateCell((Button) findViewById(R.id.button33));
+                        break;
+                }
+                break;
+        }
+
+    }
+
+    public int[][] copyArray(int[][] toCopy, int size) {
+        int[][] copied = new int[size][size];
+
+        for (int i = 0; i < size; i++) {
+            //noinspection ManualArrayCopy
+            for (int j = 0; j < size; j++) {
+                copied[i][j] = toCopy[i][j];
+            }
+        }
+
+        return copied;
     }
 }
