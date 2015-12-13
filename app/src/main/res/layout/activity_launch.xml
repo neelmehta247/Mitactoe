@@ -6,4 +6,101 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".LaunchActivity" />
+    tools:context=".LaunchActivity">
+
+    <ViewFlipper
+        android:id="@+id/mainViewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/buttonOnePlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="One Player" />
+
+            <Button
+                android:id="@+id/buttonTwoPlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonOnePlayer"
+                android:text="Two Player" />
+
+            <Button
+                android:id="@+id/buttonInstructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonTwoPlayer"
+                android:text="Instructions" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/playerOneName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Player 1 Name" />
+
+            <EditText
+                android:id="@+id/playerTwoName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/playerOneName"
+                android:hint="Player 2 Name" />
+
+            <Button
+                android:id="@+id/buttonSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/playerTwoName"
+                android:text="Play" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/playerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Player Name" />
+
+            <TextView
+                android:id="@+id/randomTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/playerName"
+                android:text="\nDifficulty:" />
+
+            <Button
+                android:id="@+id/buttonEasy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/randomTextView"
+                android:text="Easy" />
+
+            <Button
+                android:id="@+id/buttonMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonEasy"
+                android:text="Medium" />
+
+            <Button
+                android:id="@+id/buttonHard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonMedium"
+                android:text="Hard" />
+        </RelativeLayout>
+    </ViewFlipper>
+</RelativeLayout>
