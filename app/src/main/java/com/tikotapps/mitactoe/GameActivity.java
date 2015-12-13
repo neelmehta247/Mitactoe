@@ -296,6 +296,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int[][] boardToSend;
         boolean toContinue;
         int count = 0;
+        double mistakeIndex = 0.15;
+
         do {
             boardToSend = copyArray(board, 4);
             toContinue = false;
@@ -312,12 +314,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         } while (toContinue || count < 16);
 
-        if (count >= 16) {
+        if (count >= 16 || Math.random() <= mistakeIndex) {
             outer:
             for (int x = 0; x < 4; x++) {
                 for (int y = 0; y < 4; y++) {
                     if (board[x][y] == 0) {
                         board[x][y] = 1;
+                        i = x;
+                        j = y;
                         break outer;
                     }
                 }
