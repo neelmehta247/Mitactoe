@@ -51,7 +51,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.buttonEasy:
                 gameIntent.putExtra("player1", ((EditText) findViewById(R.id.playerName)).getText().toString().trim());
-                gameIntent.putExtra("difficulty", Difficulty.NONE);
+                gameIntent.putExtra("difficulty", Difficulty.EASY);
                 startActivity(gameIntent);
                 break;
             case R.id.buttonMedium:

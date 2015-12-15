@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 
@@ -19,13 +20,41 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int[][] board;
-    private boolean player1Turn;
+    private boolean player1Turn, player1StartedPrevGame, aiNeeded;
+    private String player1, player2;
+    private int player1Score, player2Score;
+    private double mistakeIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         initComponents();
+        if (getIntent().getExtras().getString("player1").equals("")) {
+            player1 = "Player 1";
+        } else {
+            player1 = getIntent().getExtras().getString("player1");
+        }
+        if (getIntent().getExtras().get("difficulty") == Difficulty.NONE) {
+            if (getIntent().getExtras().getString("player2").equals("")) {
+                player2 = "Player 2";
+            } else {
+                player2 = getIntent().getExtras().getString("player2");
+            }
+            aiNeeded = false;
+        } else {
+            player2 = "Computer";
+            aiNeeded = true;
+            if (getIntent().getExtras().get("difficulty") == Difficulty.EASY) {
+                mistakeIndex = 0.35;
+            } else if (getIntent().getExtras().get("difficulty") == Difficulty.MEDIUM) {
+                mistakeIndex = 0.175;
+            } else {
+                mistakeIndex = 0;
+            }
+        }
+        player1StartedPrevGame = false;
+        updateTextViews();
         startGame();
     }
 
@@ -37,7 +66,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 board[i][j] = 0;
             }
         }
-        player1Turn = true;
+        player1Turn = !player1StartedPrevGame;
+        player1StartedPrevGame = player1Turn;
+
+        if (!player1Turn && aiNeeded) {
+            doAIMove();
+        }
+
+        if (player1Turn) {
+            ((TextView) findViewById(R.id.turn)).setText(player1 + "\'s Turn");
+        } else {
+            ((TextView) findViewById(R.id.turn)).setText(player2 + "\'s Turn");
+        }
     }
 
     private void resetButtons() {
@@ -81,6 +121,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.button31).setOnClickListener(this);
         findViewById(R.id.button32).setOnClickListener(this);
         findViewById(R.id.button33).setOnClickListener(this);
+
+        player1Score = 0;
+        player2Score = 0;
+
+        updateTextViews();
     }
 
     @Override
@@ -205,9 +250,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (isGameOver(board)) {
             String winString;
             if (player1Turn) {
-                winString = "Player 1 Wins!";
+                winString = player1 + " Wins!";
+                player1Score++;
             } else {
-                winString = "Player 2 Wins!";
+                winString = player2 + " Wins!";
+                player2Score++;
             }
             AlertDialog dialog = new AlertDialog.Builder(this).setTitle(winString)
                     .setMessage("Do you want to play a new game?")
@@ -231,11 +278,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     .setCancelable(false)
                     .create();
             dialog.show();
+            updateTextViews();
         }
 
-        if (!player1Turn && !isGameOver(board)) {
+        if (player1Turn) {
+            ((TextView) findViewById(R.id.turn)).setText(player1 + "\'s Turn");
+        } else {
+            ((TextView) findViewById(R.id.turn)).setText(player2 + "\'s Turn");
+        }
+
+        if (!player1Turn && !isGameOver(board) && aiNeeded) {
             doAIMove();
         }
+    }
+
+    private void updateTextViews() {
+        ((TextView) findViewById(R.id.playerOneScore)).setText(player1 + ": " + player1Score);
+        ((TextView) findViewById(R.id.playerTwoScore)).setText(player2 + ": " + player2Score);
     }
 
     private boolean isGameOver(int[][] boardToCheck) {
@@ -296,7 +355,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int[][] boardToSend;
         boolean toContinue;
         int count = 0;
-        double mistakeIndex = 0.15;
 
         do {
             boardToSend = copyArray(board, 4);
@@ -315,17 +373,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } while (toContinue || count < 16);
 
         if (count >= 16 || Math.random() <= mistakeIndex) {
-            outer:
-            for (int x = 0; x < 4; x++) {
-                for (int y = 0; y < 4; y++) {
-                    if (board[x][y] == 0) {
-                        board[x][y] = 1;
-                        i = x;
-                        j = y;
-                        break outer;
-                    }
+            do {
+                i = random.nextInt(4);
+                j = random.nextInt(4);
+                if (board[i][j] == 0) {
+                    board[i][j] = 1;
+                    break;
                 }
-            }
+            } while (true);
         } else {
             board[i][j] = 1;
         }
