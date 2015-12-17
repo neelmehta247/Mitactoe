@@ -42,18 +42,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/playerName"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilPN"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Player Name"
-                android:inputType="textCapWords" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/playerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Player Name"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
 
             <TextView
                 android:id="@+id/randomTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/playerName"
+                android:layout_below="@+id/tilPN"
                 android:text="\nDifficulty:" />
 
             <Button
@@ -82,20 +88,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/playerOneName"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilP1N"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Player 1 Name"
-                android:inputType="textCapWords" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/playerTwoName"
+                <EditText
+                    android:id="@+id/playerOneName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Player 1 Name"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilP2N"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/playerOneName"
-                android:hint="Player 2 Name"
-                android:inputType="textCapWords" />
+                android:layout_below="@+id/tilP1N">
+
+                <EditText
+                    android:id="@+id/playerTwoName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Player 2 Name"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/buttonSubmit"
@@ -103,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/playerTwoName"
+                android:layout_below="@+id/tilP2N"
                 android:text="Play" />
         </RelativeLayout>
     </ViewFlipper>
