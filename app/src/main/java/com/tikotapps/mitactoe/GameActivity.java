@@ -25,6 +25,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int player1Score, player2Score;
     private double mistakeIndex;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
