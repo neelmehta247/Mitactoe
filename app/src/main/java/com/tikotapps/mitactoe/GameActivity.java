@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -24,6 +25,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private String player1, player2;
     private int player1Score, player2Score;
     private double mistakeIndex;
+    private HashMap<String, Button> buttonHashMap = new HashMap<>();
+    private HashMap<Integer, String> buttonKeysHashMap = new HashMap<>();
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -87,41 +90,52 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .endConfig()
                 .buildRect("", Color.WHITE);
 
-        findViewById(R.id.button00).setBackground(blankBox);
-        findViewById(R.id.button01).setBackground(blankBox);
-        findViewById(R.id.button02).setBackground(blankBox);
-        findViewById(R.id.button03).setBackground(blankBox);
-        findViewById(R.id.button10).setBackground(blankBox);
-        findViewById(R.id.button11).setBackground(blankBox);
-        findViewById(R.id.button12).setBackground(blankBox);
-        findViewById(R.id.button13).setBackground(blankBox);
-        findViewById(R.id.button20).setBackground(blankBox);
-        findViewById(R.id.button21).setBackground(blankBox);
-        findViewById(R.id.button22).setBackground(blankBox);
-        findViewById(R.id.button23).setBackground(blankBox);
-        findViewById(R.id.button30).setBackground(blankBox);
-        findViewById(R.id.button31).setBackground(blankBox);
-        findViewById(R.id.button32).setBackground(blankBox);
-        findViewById(R.id.button33).setBackground(blankBox);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                buttonHashMap.get(String.valueOf(i) + String.valueOf(j)).setBackground(blankBox);
+            }
+        }
     }
 
     private void initComponents() {
-        findViewById(R.id.button00).setOnClickListener(this);
-        findViewById(R.id.button01).setOnClickListener(this);
-        findViewById(R.id.button02).setOnClickListener(this);
-        findViewById(R.id.button03).setOnClickListener(this);
-        findViewById(R.id.button10).setOnClickListener(this);
-        findViewById(R.id.button11).setOnClickListener(this);
-        findViewById(R.id.button12).setOnClickListener(this);
-        findViewById(R.id.button13).setOnClickListener(this);
-        findViewById(R.id.button20).setOnClickListener(this);
-        findViewById(R.id.button21).setOnClickListener(this);
-        findViewById(R.id.button22).setOnClickListener(this);
-        findViewById(R.id.button23).setOnClickListener(this);
-        findViewById(R.id.button30).setOnClickListener(this);
-        findViewById(R.id.button31).setOnClickListener(this);
-        findViewById(R.id.button32).setOnClickListener(this);
-        findViewById(R.id.button33).setOnClickListener(this);
+        buttonKeysHashMap.put(R.id.button00, "00");
+        buttonKeysHashMap.put(R.id.button01, "01");
+        buttonKeysHashMap.put(R.id.button02, "02");
+        buttonKeysHashMap.put(R.id.button03, "03");
+        buttonKeysHashMap.put(R.id.button10, "10");
+        buttonKeysHashMap.put(R.id.button11, "11");
+        buttonKeysHashMap.put(R.id.button12, "12");
+        buttonKeysHashMap.put(R.id.button13, "13");
+        buttonKeysHashMap.put(R.id.button20, "20");
+        buttonKeysHashMap.put(R.id.button21, "21");
+        buttonKeysHashMap.put(R.id.button22, "22");
+        buttonKeysHashMap.put(R.id.button23, "23");
+        buttonKeysHashMap.put(R.id.button30, "30");
+        buttonKeysHashMap.put(R.id.button31, "31");
+        buttonKeysHashMap.put(R.id.button32, "32");
+        buttonKeysHashMap.put(R.id.button33, "33");
+        buttonHashMap.put("00", (Button) findViewById(R.id.button00));
+        buttonHashMap.put("01", (Button) findViewById(R.id.button01));
+        buttonHashMap.put("02", (Button) findViewById(R.id.button02));
+        buttonHashMap.put("03", (Button) findViewById(R.id.button03));
+        buttonHashMap.put("10", (Button) findViewById(R.id.button10));
+        buttonHashMap.put("11", (Button) findViewById(R.id.button11));
+        buttonHashMap.put("12", (Button) findViewById(R.id.button12));
+        buttonHashMap.put("13", (Button) findViewById(R.id.button13));
+        buttonHashMap.put("20", (Button) findViewById(R.id.button20));
+        buttonHashMap.put("21", (Button) findViewById(R.id.button21));
+        buttonHashMap.put("22", (Button) findViewById(R.id.button22));
+        buttonHashMap.put("23", (Button) findViewById(R.id.button23));
+        buttonHashMap.put("30", (Button) findViewById(R.id.button30));
+        buttonHashMap.put("31", (Button) findViewById(R.id.button31));
+        buttonHashMap.put("32", (Button) findViewById(R.id.button32));
+        buttonHashMap.put("33", (Button) findViewById(R.id.button33));
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                buttonHashMap.get(String.valueOf(i) + String.valueOf(j)).setOnClickListener(this);
+            }
+        }
 
         player1Score = 0;
         player2Score = 0;
@@ -131,122 +145,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button00:
-                if (board[0][0] == 0) {
-                    board[0][0] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button01:
-                if (board[0][1] == 0) {
-                    board[0][1] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button02:
-                if (board[0][2] == 0) {
-                    board[0][2] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button03:
-                if (board[0][3] == 0) {
-                    board[0][3] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button10:
-                if (board[1][0] == 0) {
-                    board[1][0] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button11:
-                if (board[1][1] == 0) {
-                    board[1][1] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button12:
-                if (board[1][2] == 0) {
-                    board[1][2] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button13:
-                if (board[1][3] == 0) {
-                    board[1][3] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button20:
-                if (board[2][0] == 0) {
-                    board[2][0] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button21:
-                if (board[2][1] == 0) {
-                    board[2][1] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button22:
-                if (board[2][2] == 0) {
-                    board[2][2] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button23:
-                if (board[2][3] == 0) {
-                    board[2][3] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button30:
-                if (board[3][0] == 0) {
-                    board[3][0] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button31:
-                if (board[3][1] == 0) {
-                    board[3][1] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button32:
-                if (board[3][2] == 0) {
-                    board[3][2] = 1;
-                    updateCell((Button) view);
-                }
-                break;
-            case R.id.button33:
-                if (board[3][3] == 0) {
-                    board[3][3] = 1;
-                    updateCell((Button) view);
-                }
-                break;
+        String button = buttonKeysHashMap.get(view.getId());
+        int i = Integer.parseInt(button.substring(0, 1));
+        int j = Integer.parseInt(button.substring(1));
+
+        if (board[i][j] == 0) {
+            board[i][j] = 1;
+            updateBoard(buttonHashMap.get(button));
         }
     }
 
-    private void updateCell(Button view) {
-        int color;
-
-        if (player1Turn) {
-            color = Color.RED;
-        } else {
-            color = Color.BLUE;
-        }
+    private void updateBoard(Button buttonClicked) {
         player1Turn = !player1Turn;
 
         TextDrawable drawable = TextDrawable.builder().beginConfig()
                 .withBorder(4)
                 .endConfig()
-                .buildRect("X", color);
+                .buildRect("X", Color.BLACK);
 
-        view.setBackground(drawable);
+        buttonClicked.setBackground(drawable);
 
         if (isGameOver(board)) {
             String winString;
@@ -386,73 +303,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             board[i][j] = 1;
         }
 
-        switch (i) {
-            case 0:
-                switch (j) {
-                    case 0:
-                        updateCell((Button) findViewById(R.id.button00));
-                        break;
-                    case 1:
-                        updateCell((Button) findViewById(R.id.button01));
-                        break;
-                    case 2:
-                        updateCell((Button) findViewById(R.id.button02));
-                        break;
-                    case 3:
-                        updateCell((Button) findViewById(R.id.button03));
-                        break;
-                }
-                break;
-            case 1:
-                switch (j) {
-                    case 0:
-                        updateCell((Button) findViewById(R.id.button10));
-                        break;
-                    case 1:
-                        updateCell((Button) findViewById(R.id.button11));
-                        break;
-                    case 2:
-                        updateCell((Button) findViewById(R.id.button12));
-                        break;
-                    case 3:
-                        updateCell((Button) findViewById(R.id.button13));
-                        break;
-                }
-                break;
-            case 2:
-                switch (j) {
-                    case 0:
-                        updateCell((Button) findViewById(R.id.button20));
-                        break;
-                    case 1:
-                        updateCell((Button) findViewById(R.id.button21));
-                        break;
-                    case 2:
-                        updateCell((Button) findViewById(R.id.button22));
-                        break;
-                    case 3:
-                        updateCell((Button) findViewById(R.id.button23));
-                        break;
-                }
-                break;
-            case 3:
-                switch (j) {
-                    case 0:
-                        updateCell((Button) findViewById(R.id.button30));
-                        break;
-                    case 1:
-                        updateCell((Button) findViewById(R.id.button31));
-                        break;
-                    case 2:
-                        updateCell((Button) findViewById(R.id.button32));
-                        break;
-                    case 3:
-                        updateCell((Button) findViewById(R.id.button33));
-                        break;
-                }
-                break;
-        }
-
+        updateBoard(buttonHashMap.get(String.valueOf(i) + String.valueOf(j)));
     }
 
     public int[][] copyArray(int[][] toCopy, int size) {
