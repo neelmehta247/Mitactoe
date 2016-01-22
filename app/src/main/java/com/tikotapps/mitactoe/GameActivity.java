@@ -23,7 +23,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int[][] board;
     private boolean player1Turn, player1StartedPrevGame, aiNeeded;
     private String player1, player2;
-    private int player1Score, player2Score;
+    private int player1Score, player2Score, size;
     private double mistakeIndex;
     private HashMap<String, Button> buttonHashMap = new HashMap<>();
     private HashMap<Integer, String> buttonKeysHashMap = new HashMap<>();
@@ -64,9 +64,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void startGame() {
         resetButtons();
-        board = new int[4][4];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        board = new int[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 board[i][j] = 0;
             }
         }
@@ -90,49 +90,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .endConfig()
                 .buildRect("", Color.WHITE);
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 buttonHashMap.get(String.valueOf(i) + String.valueOf(j)).setBackground(blankBox);
             }
         }
     }
 
     private void initComponents() {
-        buttonKeysHashMap.put(R.id.button00, "00");
-        buttonKeysHashMap.put(R.id.button01, "01");
-        buttonKeysHashMap.put(R.id.button02, "02");
-        buttonKeysHashMap.put(R.id.button03, "03");
-        buttonKeysHashMap.put(R.id.button10, "10");
-        buttonKeysHashMap.put(R.id.button11, "11");
-        buttonKeysHashMap.put(R.id.button12, "12");
-        buttonKeysHashMap.put(R.id.button13, "13");
-        buttonKeysHashMap.put(R.id.button20, "20");
-        buttonKeysHashMap.put(R.id.button21, "21");
-        buttonKeysHashMap.put(R.id.button22, "22");
-        buttonKeysHashMap.put(R.id.button23, "23");
-        buttonKeysHashMap.put(R.id.button30, "30");
-        buttonKeysHashMap.put(R.id.button31, "31");
-        buttonKeysHashMap.put(R.id.button32, "32");
-        buttonKeysHashMap.put(R.id.button33, "33");
-        buttonHashMap.put("00", (Button) findViewById(R.id.button00));
-        buttonHashMap.put("01", (Button) findViewById(R.id.button01));
-        buttonHashMap.put("02", (Button) findViewById(R.id.button02));
-        buttonHashMap.put("03", (Button) findViewById(R.id.button03));
-        buttonHashMap.put("10", (Button) findViewById(R.id.button10));
-        buttonHashMap.put("11", (Button) findViewById(R.id.button11));
-        buttonHashMap.put("12", (Button) findViewById(R.id.button12));
-        buttonHashMap.put("13", (Button) findViewById(R.id.button13));
-        buttonHashMap.put("20", (Button) findViewById(R.id.button20));
-        buttonHashMap.put("21", (Button) findViewById(R.id.button21));
-        buttonHashMap.put("22", (Button) findViewById(R.id.button22));
-        buttonHashMap.put("23", (Button) findViewById(R.id.button23));
-        buttonHashMap.put("30", (Button) findViewById(R.id.button30));
-        buttonHashMap.put("31", (Button) findViewById(R.id.button31));
-        buttonHashMap.put("32", (Button) findViewById(R.id.button32));
-        buttonHashMap.put("33", (Button) findViewById(R.id.button33));
+        initateHashMaps();
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 buttonHashMap.get(String.valueOf(i) + String.valueOf(j)).setOnClickListener(this);
             }
         }
@@ -217,57 +186,57 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean isGameOver(int[][] boardToCheck) {
         //Checking columns
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < size; i++) {
             int total = 0;
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < size; j++) {
                 if (boardToCheck[i][j] == 1) {
                     total++;
                 }
             }
-            if (total == 4) {
+            if (total == size) {
                 return true;
             }
         }
 
         //Checking rows
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < size; i++) {
             int total = 0;
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < size; j++) {
                 if (boardToCheck[j][i] == 1) {
                     total++;
                 }
             }
-            if (total == 4) {
+            if (total == size) {
                 return true;
             }
         }
 
         //Checking one diagonal
         int total = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if ((i == j) && boardToCheck[j][i] == 1) {
                     total++;
                 }
             }
         }
-        if (total == 4) {
+        if (total == size) {
             return true;
         }
 
         //Checking the other diagonal
         total = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if ((i + j == 3) && boardToCheck[i][j] == 1) {
                     total++;
                 }
             }
         }
-        return total == 4;
+        return total == size;
     }
 
-    public void doAIMove() {
+    private void doAIMove() {
         Random random = new Random();
         int i, j;
         int[][] boardToSend;
@@ -275,11 +244,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int count = 0;
 
         do {
-            boardToSend = copyArray(board, 4);
+            boardToSend = copyArray(board, size);
             toContinue = false;
             count++;
-            i = random.nextInt(4);
-            j = random.nextInt(4);
+            i = random.nextInt(size);
+            j = random.nextInt(size);
             if (boardToSend[i][j] == 0) {
                 boardToSend[i][j] = 1;
                 if (!isGameOver(boardToSend)) {
@@ -288,12 +257,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 toContinue = true;
             }
-        } while (toContinue || count < 16);
+        } while (toContinue || count < (size * size));
 
-        if (count >= 16 || Math.random() <= mistakeIndex) {
+        if (count >= (size * size) || Math.random() <= mistakeIndex) {
             do {
-                i = random.nextInt(4);
-                j = random.nextInt(4);
+                i = random.nextInt(size);
+                j = random.nextInt(size);
                 if (board[i][j] == 0) {
                     board[i][j] = 1;
                     break;
@@ -306,7 +275,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         updateBoard(buttonHashMap.get(String.valueOf(i) + String.valueOf(j)));
     }
 
-    public int[][] copyArray(int[][] toCopy, int size) {
+    private int[][] copyArray(int[][] toCopy, int size) {
         int[][] copied = new int[size][size];
 
         for (int i = 0; i < size; i++) {
@@ -317,5 +286,86 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return copied;
+    }
+
+    private void initateHashMaps() {
+        switch (size) {
+            case 6:
+                buttonKeysHashMap.put(R.id.button05, "05");
+                buttonKeysHashMap.put(R.id.button15, "15");
+                buttonKeysHashMap.put(R.id.button25, "25");
+                buttonKeysHashMap.put(R.id.button35, "35");
+                buttonKeysHashMap.put(R.id.button45, "45");
+                buttonKeysHashMap.put(R.id.button50, "50");
+                buttonKeysHashMap.put(R.id.button51, "51");
+                buttonKeysHashMap.put(R.id.button52, "52");
+                buttonKeysHashMap.put(R.id.button53, "53");
+                buttonKeysHashMap.put(R.id.button54, "54");
+                buttonKeysHashMap.put(R.id.button55, "55");
+                buttonHashMap.put("05", (Button) findViewById(R.id.button05));
+                buttonHashMap.put("15", (Button) findViewById(R.id.button15));
+                buttonHashMap.put("25", (Button) findViewById(R.id.button25));
+                buttonHashMap.put("35", (Button) findViewById(R.id.button35));
+                buttonHashMap.put("45", (Button) findViewById(R.id.button45));
+                buttonHashMap.put("50", (Button) findViewById(R.id.button50));
+                buttonHashMap.put("51", (Button) findViewById(R.id.button51));
+                buttonHashMap.put("52", (Button) findViewById(R.id.button52));
+                buttonHashMap.put("53", (Button) findViewById(R.id.button53));
+                buttonHashMap.put("54", (Button) findViewById(R.id.button54));
+                buttonHashMap.put("55", (Button) findViewById(R.id.button55));
+            case 5:
+                buttonKeysHashMap.put(R.id.button04, "04");
+                buttonKeysHashMap.put(R.id.button14, "14");
+                buttonKeysHashMap.put(R.id.button24, "24");
+                buttonKeysHashMap.put(R.id.button34, "34");
+                buttonKeysHashMap.put(R.id.button40, "40");
+                buttonKeysHashMap.put(R.id.button41, "41");
+                buttonKeysHashMap.put(R.id.button42, "42");
+                buttonKeysHashMap.put(R.id.button43, "43");
+                buttonKeysHashMap.put(R.id.button44, "44");
+                buttonHashMap.put("04", (Button) findViewById(R.id.button04));
+                buttonHashMap.put("14", (Button) findViewById(R.id.button14));
+                buttonHashMap.put("24", (Button) findViewById(R.id.button24));
+                buttonHashMap.put("34", (Button) findViewById(R.id.button34));
+                buttonHashMap.put("40", (Button) findViewById(R.id.button40));
+                buttonHashMap.put("41", (Button) findViewById(R.id.button41));
+                buttonHashMap.put("42", (Button) findViewById(R.id.button42));
+                buttonHashMap.put("43", (Button) findViewById(R.id.button43));
+                buttonHashMap.put("44", (Button) findViewById(R.id.button44));
+            case 4:
+                buttonKeysHashMap.put(R.id.button03, "03");
+                buttonKeysHashMap.put(R.id.button13, "13");
+                buttonKeysHashMap.put(R.id.button23, "23");
+                buttonKeysHashMap.put(R.id.button30, "30");
+                buttonKeysHashMap.put(R.id.button31, "31");
+                buttonKeysHashMap.put(R.id.button32, "32");
+                buttonKeysHashMap.put(R.id.button33, "33");
+                buttonHashMap.put("03", (Button) findViewById(R.id.button03));
+                buttonHashMap.put("13", (Button) findViewById(R.id.button13));
+                buttonHashMap.put("23", (Button) findViewById(R.id.button23));
+                buttonHashMap.put("30", (Button) findViewById(R.id.button30));
+                buttonHashMap.put("31", (Button) findViewById(R.id.button31));
+                buttonHashMap.put("32", (Button) findViewById(R.id.button32));
+                buttonHashMap.put("33", (Button) findViewById(R.id.button33));
+            case 3:
+                buttonKeysHashMap.put(R.id.button00, "00");
+                buttonKeysHashMap.put(R.id.button00, "01");
+                buttonKeysHashMap.put(R.id.button00, "02");
+                buttonKeysHashMap.put(R.id.button00, "10");
+                buttonKeysHashMap.put(R.id.button00, "11");
+                buttonKeysHashMap.put(R.id.button00, "12");
+                buttonKeysHashMap.put(R.id.button00, "20");
+                buttonKeysHashMap.put(R.id.button00, "21");
+                buttonKeysHashMap.put(R.id.button00, "22");
+                buttonHashMap.put("00", (Button) findViewById(R.id.button00));
+                buttonHashMap.put("01", (Button) findViewById(R.id.button01));
+                buttonHashMap.put("02", (Button) findViewById(R.id.button02));
+                buttonHashMap.put("10", (Button) findViewById(R.id.button10));
+                buttonHashMap.put("11", (Button) findViewById(R.id.button11));
+                buttonHashMap.put("12", (Button) findViewById(R.id.button12));
+                buttonHashMap.put("20", (Button) findViewById(R.id.button20));
+                buttonHashMap.put("21", (Button) findViewById(R.id.button21));
+                buttonHashMap.put("22", (Button) findViewById(R.id.button22));
+        }
     }
 }
