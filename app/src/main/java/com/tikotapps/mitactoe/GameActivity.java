@@ -23,7 +23,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int[][] board;
     private boolean player1Turn, player1StartedPrevGame, aiNeeded;
     private String player1, player2;
-    private int player1Score, player2Score, size;
+    private int player1Score, player2Score, size = 6;
     private double mistakeIndex;
     private HashMap<String, Button> buttonHashMap = new HashMap<>();
     private HashMap<Integer, String> buttonKeysHashMap = new HashMap<>();
@@ -32,8 +32,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+
+        switch (size) {
+            case 3:
+                setContentView(R.layout.board3);
+                break;
+            case 4:
+                setContentView(R.layout.board4);
+                break;
+            case 5:
+                setContentView(R.layout.board5);
+                break;
+            case 6:
+                setContentView(R.layout.board6);
+                break;
+        }
+
         initComponents();
+
         if (getIntent().getExtras().getString("player1").equals("")) {
             player1 = "Player 1";
         } else {
@@ -57,7 +73,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 mistakeIndex = 0;
             }
         }
+
         player1StartedPrevGame = false;
+
         updateTextViews();
         startGame();
     }
@@ -349,14 +367,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 buttonHashMap.put("33", (Button) findViewById(R.id.button33));
             case 3:
                 buttonKeysHashMap.put(R.id.button00, "00");
-                buttonKeysHashMap.put(R.id.button00, "01");
-                buttonKeysHashMap.put(R.id.button00, "02");
-                buttonKeysHashMap.put(R.id.button00, "10");
-                buttonKeysHashMap.put(R.id.button00, "11");
-                buttonKeysHashMap.put(R.id.button00, "12");
-                buttonKeysHashMap.put(R.id.button00, "20");
-                buttonKeysHashMap.put(R.id.button00, "21");
-                buttonKeysHashMap.put(R.id.button00, "22");
+                buttonKeysHashMap.put(R.id.button01, "01");
+                buttonKeysHashMap.put(R.id.button02, "02");
+                buttonKeysHashMap.put(R.id.button10, "10");
+                buttonKeysHashMap.put(R.id.button11, "11");
+                buttonKeysHashMap.put(R.id.button12, "12");
+                buttonKeysHashMap.put(R.id.button20, "20");
+                buttonKeysHashMap.put(R.id.button21, "21");
+                buttonKeysHashMap.put(R.id.button22, "22");
                 buttonHashMap.put("00", (Button) findViewById(R.id.button00));
                 buttonHashMap.put("01", (Button) findViewById(R.id.button01));
                 buttonHashMap.put("02", (Button) findViewById(R.id.button02));
