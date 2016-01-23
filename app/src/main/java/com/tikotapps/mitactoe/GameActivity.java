@@ -23,7 +23,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int[][] board;
     private boolean player1Turn, player1StartedPrevGame, aiNeeded;
     private String player1, player2;
-    private int player1Score, player2Score, size = 6;
+    private int player1Score, player2Score, size;
     private double mistakeIndex;
     private HashMap<String, Button> buttonHashMap = new HashMap<>();
     private HashMap<Integer, String> buttonKeysHashMap = new HashMap<>();
@@ -32,6 +32,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        size = getIntent().getExtras().getInt("size");
 
         switch (size) {
             case 3:
@@ -47,8 +49,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 setContentView(R.layout.board6);
                 break;
         }
-
-        initComponents();
 
         if (getIntent().getExtras().getString("player1").equals("")) {
             player1 = "Player 1";
@@ -74,9 +74,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        player1StartedPrevGame = false;
+        initComponents();
 
-        updateTextViews();
+        player1StartedPrevGame = false;
         startGame();
     }
 
@@ -246,7 +246,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         total = 0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if ((i + j == 3) && boardToCheck[i][j] == 1) {
+                if ((i + j == size - 1) && boardToCheck[i][j] == 1) {
                     total++;
                 }
             }
