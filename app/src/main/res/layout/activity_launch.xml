@@ -26,17 +26,10 @@
             android:text="Two Player" />
 
         <Button
-            android:id="@+id/buttonBluetoothGame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonTwoPlayer"
-            android:text="Bluetooth Game" />
-
-        <Button
             android:id="@+id/buttonInstructions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonBluetoothGame"
+            android:layout_below="@+id/buttonTwoPlayer"
             android:text="Instructions" />
     </RelativeLayout>
 </RelativeLayout>
