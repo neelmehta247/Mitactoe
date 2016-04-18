@@ -20,6 +20,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.buttonOnePlayer).setOnClickListener(this);
         findViewById(R.id.buttonTwoPlayer).setOnClickListener(this);
         findViewById(R.id.buttonInstructions).setOnClickListener(this);
+        findViewById(R.id.buttonBluetoothGame).setOnClickListener(this);
     }
 
     @Override
@@ -32,6 +33,9 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, TwoPlayerActivity.class));
                 break;
             case R.id.buttonInstructions:
+                break;
+            case R.id.buttonBluetoothGame:
+                startActivity(new Intent(this, BluetoothGameActivity.class));
                 break;
         }
     }
